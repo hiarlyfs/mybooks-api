@@ -1,0 +1,23 @@
+{
+  "name": "books-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.9"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "factory-girl": "^5.0.4",
+    "jest": "^25.3.0",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node src/index.js --ignore __tests__",
+    "dev": "ENVIRONMENT=development nodemon src/index.js --ignore __tests__",
+    "test": "ENVIRONMENT=development jest --maxWorkers=1"
+  }
+}
