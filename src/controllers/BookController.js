@@ -3,7 +3,7 @@ const Book = require("../models/Book");
 
 module.exports = {
   createBook: async (req, res) => {
-    const { isbn, status } = req.body;
+    const { isbn } = req.body;
     try {
       const { books } = await mercadoEditorial
         .get(`?isbn=${isbn}`)
@@ -12,14 +12,13 @@ module.exports = {
         });
 
       const newBook = await Book.create({
-        isbn: books[0].isbn,
+        ...req.body,
         titulo: books[0].titulo,
         subTitulo: books[0].subtitulo,
         edicao: books[0].edicao,
         autores: books[0].contribuicao,
         sinopse: books[0].sinopse,
         paginas: books[0].medidas.paginas,
-        status,
       });
 
       return res.send(newBook);

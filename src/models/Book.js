@@ -39,17 +39,22 @@ const BookSchema = new mongoose.Schema({
     required: false,
   },
   anoLido: {
-    type: Number,
+    type: String,
     required: false,
+  },
+  criadoEm: {
+    required: true,
+    type: Date,
+    default: Date.now,
   },
 });
 
-BookSchema.pre("save", async function (next) {
+BookSchema.pre("save", function (next) {
   if (this.finalizadoEm) {
     this.anoLido = new Date(this.finalizadoEm).getFullYear();
-
-    next();
   }
+
+  next();
 });
 
 module.exports = mongoose.model("Book", BookSchema);

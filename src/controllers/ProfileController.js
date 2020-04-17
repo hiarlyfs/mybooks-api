@@ -33,7 +33,6 @@ module.exports = {
     }
   },
 
-  
   livrosLendo: async (req, res) => {
     const { ano } = req.query;
     try {
