@@ -17,7 +17,7 @@ module.exports = {
 
       return res.send(books);
     } catch (err) {
-      return sres.status(400).send({ error: "Can't search for book" });
+      return res.status(400).send({ error: "Can't search for book" });
     }
   },
 };

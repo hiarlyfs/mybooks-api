@@ -11,6 +11,17 @@ module.exports = {
           return res.data;
         });
 
+      const myBook = await Book.findOne({ isbn });
+      if (myBook) {
+        myBook.status = req.body.status;
+        if (req.body.status !== "FINALIZADO") {
+          myBook.finalizadoEm = undefined;
+        } else {
+          myBook.finalizadoEm = req.body.finalizadoEm;
+        }
+        await myBook.save();
+        return res.send(myBook);
+      }
       const newBook = await Book.create({
         ...req.body,
         titulo: books[0].titulo,
