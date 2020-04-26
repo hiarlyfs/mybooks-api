@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const apiBaseUrl = axios.create({
-  baseURL: process.env.MERCADO_EDITORIAL,
+  baseURL: "https://www.googleapis.com/books/v1/volumes",
 });
 
 module.exports = apiBaseUrl;

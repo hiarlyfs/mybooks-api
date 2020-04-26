@@ -1,8 +1,8 @@
 const mongoose = require("../database");
 
 const BookSchema = new mongoose.Schema({
-  isbn: {
-    type: Number,
+  volumeId: {
+    type: String,
     required: true,
     unique: true,
   },
@@ -12,7 +12,7 @@ const BookSchema = new mongoose.Schema({
   },
   subTitulo: {
     type: String,
-    required: false,
+    default: "",
   },
   edicao: {
     type: Number,

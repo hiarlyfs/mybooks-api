@@ -3,7 +3,7 @@ const Book = require("../../src/models/Book");
 
 factory.define("Book", Book, {
   titulo: "Poetas no topo 1",
-  isbn: 1234567891112,
+  volumeId: 123456789,
   autores: ["Hialry Fernandes de Souto"],
   paginas: 200,
   sinopse: "Música foda",

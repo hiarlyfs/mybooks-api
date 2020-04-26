@@ -1,17 +1,14 @@
-const mercadoEditorial = require("../services/mercadoEditorial");
+const googleBooksApi = require("../services/GoogleBooks");
 const Book = require("../models/Book");
 
 module.exports = {
   createBook: async (req, res) => {
-    const { isbn } = req.body;
+    const { volumeId } = req.body;
     try {
-      const { books } = await mercadoEditorial
-        .get(`?isbn=${isbn}`)
-        .then((res) => {
-          return res.data;
-        });
-
-      const myBook = await Book.findOne({ isbn });
+      const book = await googleBooksApi.get(`/${volumeId}`).then((res) => {
+        return res.data;
+      });
+      const myBook = await Book.findOne({ volumeId });
       if (myBook) {
         myBook.status = req.body.status;
         if (req.body.status !== "FINALIZADO") {
@@ -24,12 +21,11 @@ module.exports = {
       }
       const newBook = await Book.create({
         ...req.body,
-        titulo: books[0].titulo,
-        subTitulo: books[0].subtitulo,
-        edicao: books[0].edicao,
-        autores: books[0].contribuicao,
-        sinopse: books[0].sinopse,
-        paginas: books[0].medidas.paginas,
+        titulo: book.volumeInfo.title,
+        subTitulo: book.volumeInfo.subtitle,
+        autores: book.volumeInfo.authors,
+        sinopse: book.volumeInfo.description,
+        paginas: book.volumeInfo.pageCount,
       });
 
       return res.send(newBook);
@@ -46,19 +42,6 @@ module.exports = {
       return res.send(book);
     } catch (error) {
       return res.status(400).send({ error: "Can't remove book" });
-    }
-  },
-
-  updateStatus: async (req, res) => {
-    const { id } = req.params;
-    const { status } = req.body;
-    try {
-      const book = await Book.findById(id);
-      book.status = status;
-      await book.save();
-      return res.send(book);
-    } catch (error) {
-      res.status(400).send({ error: "Can't update the status of the book" });
     }
   },
 };

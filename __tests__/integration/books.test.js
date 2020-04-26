@@ -10,7 +10,7 @@ describe("Test Books", () => {
       await clearDb();
 
       const response = await request(app).post("/books").send({
-        isbn: 9788521213284,
+        volumeId: "gK98gXR8onwC",
         status: "FINALIZADO",
       });
 
@@ -24,14 +24,10 @@ describe("Test Books", () => {
     try {
       await clearDb();
 
-      const responseIsbn = await request(app).get(
-        "/searchBook?isbn=9788521213284"
-      );
       const responseTitulo = await request(app).get(
         "/searchBook?titulo=Sistemas Operacionais Modernos"
       );
 
-      expect(responseIsbn.status).toBe(200);
       return expect(responseTitulo.status).toBe(200);
     } catch (err) {
       throw err;
@@ -49,20 +45,6 @@ describe("Test Books", () => {
       return expect(response.status).toBe(200);
     } catch (err) {
       throw err;
-    }
-  });
-
-  it("Should update the status of a book", async () => {
-    try {
-      const book = await factory.create("Book");
-
-      const response = await request(app).put(`/books/${book._id}`).send({
-        status: "LISTA DE DESEJO",
-      });
-
-      return expect(response.status).toBe(200);
-    } catch (error) {
-      throw error;
     }
   });
 });

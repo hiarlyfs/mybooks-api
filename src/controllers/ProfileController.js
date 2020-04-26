@@ -22,17 +22,6 @@ module.exports = {
     }
   },
 
-  livrosLidosEm: async (req, res) => {
-    const { ano } = req.query;
-    try {
-      const books = await Book.find({ anoLido: Number.parseInt(ano) });
-
-      return res.send(books);
-    } catch (error) {
-      return res.status(400).send({ error: "Can't get books readers" });
-    }
-  },
-
   livrosLendo: async (req, res) => {
     const { ano } = req.query;
     try {

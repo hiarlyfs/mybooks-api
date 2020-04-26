@@ -1,19 +1,14 @@
-const mercadoEditorial = require("../services/mercadoEditorial");
+const googleBooksApi = require("../services/GoogleBooks");
 
 module.exports = {
   searchBook: async (req, res) => {
-    const { isbn, titulo } = req.query;
+    const { titulo } = req.query;
     try {
-      let books = {};
-      if (isbn) {
-        books = await mercadoEditorial.get(`?isbn=${isbn}`).then((res) => {
-          return res.data;
+      const books = await googleBooksApi
+        .get(`?q=${titulo}&key=${process.env.API_KEY}`)
+        .then((res) => {
+          return res.data.items;
         });
-      } else if (titulo) {
-        books = await mercadoEditorial.get(`?titulo=${titulo}`).then((res) => {
-          return res.data;
-        });
-      }
 
       return res.send(books);
     } catch (err) {
