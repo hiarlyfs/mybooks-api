@@ -19,6 +19,7 @@ module.exports = {
         await myBook.save();
         return res.send(myBook);
       }
+
       const newBook = await Book.create({
         ...req.body,
         titulo: book.volumeInfo.title,
@@ -26,6 +27,10 @@ module.exports = {
         autores: book.volumeInfo.authors,
         sinopse: book.volumeInfo.description,
         paginas: book.volumeInfo.pageCount,
+        imageUrl: book.volumeInfo.imageLinks
+          ? book.volumeInfo.imageLinks.smallThumbnail
+          : undefined,
+        infoLink: book.volumeInfo.infoLink,
       });
 
       return res.send(newBook);

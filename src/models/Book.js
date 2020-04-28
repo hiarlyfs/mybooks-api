@@ -47,6 +47,14 @@ const BookSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imageUrl: {
+    type: String,
+    required: false,
+  },
+  infoLink: {
+    type: String,
+    required: false,
+  },
 });
 
 BookSchema.pre("save", function (next) {
