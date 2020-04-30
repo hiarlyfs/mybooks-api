@@ -63,8 +63,7 @@ BookSchema.pre("save", function (next) {
   }
 
   if (this.imageUrl) {
-    const dados = this.imageUrl.split("http");
-    this.imageUrl = `https${dados[1]}`;
+    this.imageUrl = this.imageUrl.replace("http://", "https://");
   }
 
   next();
