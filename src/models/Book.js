@@ -62,6 +62,11 @@ BookSchema.pre("save", function (next) {
     this.anoLido = new Date(this.finalizadoEm).getFullYear();
   }
 
+  if (this.imageUrl) {
+    const dados = this.imageUrl.split("http");
+    this.imageUrl = `https${dados[1]}`;
+  }
+
   next();
 });
 
