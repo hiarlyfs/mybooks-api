@@ -51,6 +51,10 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  categoria: {
+    type: String,
+    required: false,
+  },
   infoLink: {
     type: String,
     required: false,
