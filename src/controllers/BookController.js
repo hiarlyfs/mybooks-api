@@ -9,7 +9,7 @@ module.exports = {
         return res.data;
       });
       const myBook = await Book.findOne({ volumeId });
-      
+
       if (myBook) {
         myBook.status = req.body.status;
         myBook.categoria = req.body.categoria;
@@ -20,7 +20,7 @@ module.exports = {
           myBook.finalizadoEm = req.body.finalizadoEm;
         }
         await myBook.save();
-        return res.send(myBook);
+        return res.send({ livro: myBook, novo: false });
       }
 
       const newBook = await Book.create({
@@ -36,7 +36,7 @@ module.exports = {
         infoLink: book.volumeInfo.infoLink,
       });
 
-      return res.send(newBook);
+      return res.send({ livro: newBook, novo: true });
     } catch (err) {
       return res.status(400).send({ error: "Can't create a new Book" });
     }
