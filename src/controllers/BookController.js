@@ -9,8 +9,11 @@ module.exports = {
         return res.data;
       });
       const myBook = await Book.findOne({ volumeId });
+      
       if (myBook) {
         myBook.status = req.body.status;
+        myBook.categoria = req.body.categoria;
+
         if (req.body.status !== "FINALIZADO") {
           myBook.finalizadoEm = undefined;
         } else {
