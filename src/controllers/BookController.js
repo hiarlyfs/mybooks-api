@@ -11,8 +11,8 @@ module.exports = {
 
       const myBook = await Book.findOne({ volumeId });
 
-      const newBook = myBook.status === req.body.status;
       if (myBook) {
+        const newBook = myBook.status === req.body.status;
         myBook.status = req.body.status;
         myBook.categoria = req.body.categoria;
 
