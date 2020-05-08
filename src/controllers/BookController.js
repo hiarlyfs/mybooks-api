@@ -8,8 +8,10 @@ module.exports = {
       const book = await googleBooksApi.get(`/${volumeId}`).then((res) => {
         return res.data;
       });
+
       const myBook = await Book.findOne({ volumeId });
 
+      const newBook = myBook.status === req.body.status;
       if (myBook) {
         myBook.status = req.body.status;
         myBook.categoria = req.body.categoria;
@@ -20,7 +22,7 @@ module.exports = {
           myBook.finalizadoEm = req.body.finalizadoEm;
         }
         await myBook.save();
-        return res.send({ livro: myBook, novo: false });
+        return res.send({ livro: myBook, novo: newBook });
       }
 
       const newBook = await Book.create({
